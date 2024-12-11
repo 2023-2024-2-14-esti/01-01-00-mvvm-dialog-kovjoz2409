@@ -8,18 +8,17 @@ namespace Kreta.ViewModels
     public partial class StudentViewModel : ObservableObject
     {
         [ObservableProperty]
-        private Student _student = new Student();
+        private Student _student = new();
 
         [ObservableProperty]
-        private List<String> _educationLevels = new List<String>()
-        { "érettségi", "szakmai érettségi", "szakmai vizsga" };
+        private List<string> _educationLevels = ["érettségi", "szakmai érettségi", "szakmai vizsga"];
 
         [ObservableProperty]
-        private ObservableCollection<Student> _students = new ObservableCollection<Student>();
+        private ObservableCollection<Student> _students = [];
 
         public StudentViewModel()
         {
-            _student.BirthsDay = DateTime.Now;
+            _student.BirthsDay = DateTime.Now.AddYears(-14);
         }
 
         [RelayCommand]
@@ -38,6 +37,8 @@ namespace Kreta.ViewModels
         public void DoNewStudent()
         {
             Student = new Student();
+            Student.BirthsDay = DateTime.Now.AddYears(-14);
+            OnPropertyChanged(nameof(Student));
         }
     }
 }
